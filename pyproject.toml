@@ -30,8 +30,8 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/scbirlab/bioin"
-"Bug Tracker" = "https://github.com/scbirlab/bioin/issues"
+"Homepage" = "https://github.com/scbirlab/bioino"
+"Bug Tracker" = "https://github.com/scbirlab/bioino/issues"
 
 [project.scripts] 
 gff2table = "bioino.gff2table:main"
