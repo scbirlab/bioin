@@ -1,5 +1,5 @@
 [project]
-name = "bioin"
+name = "bioino"
 version = "0.0.1"
 authors = [
   { name="Eachan Johnson", email="eachan.johnson@crick.ac.uk" },
@@ -34,8 +34,8 @@ dependencies = [
 "Bug Tracker" = "https://github.com/scbirlab/bioin/issues"
 
 [project.scripts] 
-gff2table = "bioin.gff2table:main"
-table2fasta = "bioin.table2fasta:main"
+gff2table = "bioino.gff2table:main"
+table2fasta = "bioino.table2fasta:main"
 
 [build-system]
 # These are the assumed default build requirements from pip:

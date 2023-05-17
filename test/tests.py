@@ -1,5 +1,5 @@
 import doctest
-import bioin as bn
+import bioino as bn
 
 if __name__ == '__main__':
 

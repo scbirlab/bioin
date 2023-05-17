@@ -1,4 +1,4 @@
-# 💻 bioin
+# 💻 bioino
 
 Interconverting FASTA, GFF, and CSV. 
 
@@ -232,4 +232,4 @@ And Pandas daatFrames can be converted to FASTA.
 
 ## Documentation
 
-Check the API [here](https://bioin.readthedocs.org).
+Check the API [here](https://bioino.readthedocs.org).
