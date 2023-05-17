@@ -1,3 +1,2 @@
-pyyaml
 myst_parser
 ./
