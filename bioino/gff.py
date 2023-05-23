@@ -219,7 +219,7 @@ def read_gff(file: Union[str, TextIO]) -> Generator[GffLine]:
 
         elif len(line) > 0:  # tab-delimited table
 
-            data = line.split()
+            data = line.split('\t')  # Must be TAB otherwise columns 1-8 get messed up
             
             try:
                 
