@@ -1,20 +1,24 @@
 """Utilities for working with tables."""
 
-from typing import Callable, IO, Sequence
+from typing import Callable
+
+from io import TextIOWrapper
 import sys
 import os
 from functools import partial
-import pandas as pd
+
+from carabiner.decorators import vectorize
+from pandas import DataFrame, read_csv, read_excel
 
 _FILE_TYPES = {
-    '.xlsx': pd.read_excel,
-    '.csv': partial(pd.read_csv, sep=','),
-    '.tsv': partial(pd.read_csv, sep='\t'),
-    '.txt': partial(pd.read_csv, sep='\t')
+    '.xlsx': read_excel,
+    '.csv': partial(read_csv, sep=','),
+    '.tsv': partial(read_csv, sep='\s+'),
+    '.txt': partial(read_csv, sep='\s+')
 }
 
 
-def _sniff_format(f: IO) -> Callable[[IO], pd.DataFrame]:
+def _sniff_format(f: TextIOWrapper) -> Callable[[TextIOWrapper], DataFrame]:
 
     loader = None
     _, file_suffix = os.path.splitext(f.name)
@@ -35,15 +39,15 @@ def _sniff_format(f: IO) -> Callable[[IO], pd.DataFrame]:
     return loader
 
 
-def _sanitize_columns(x: Sequence[str]) -> Sequence[str]:
+@vectorize
+def _sanitize_columns(x: str) -> str:
 
-    return [col.replace(' ', '_').replace('(', '').replace(')', '') 
-            for col in x]
+    return x.replace(' ', '_').replace('(', '').replace(')', '')
 
 
-def _load_table(f: IO, 
-                reader: Callable[[IO], pd.DataFrame] = pd.read_csv, 
-                worksheet: int = 0) -> pd.DataFrame:
+def _load_table(f: TextIOWrapper, 
+                reader: Callable[[TextIOWrapper], DataFrame] = read_csv, 
+                worksheet: int = 0) -> DataFrame:
 
     data_string = f
     
@@ -53,6 +57,6 @@ def _load_table(f: IO,
     except TypeError:
         data = reader(data_string)
 
-    data.columns = _sanitize_columns(data)
+    data.columns = list(_sanitize_columns(data.columns))
 
     return data
