@@ -10,7 +10,6 @@ from carabiner.pd import read_table
 
 from .fasta import FastaCollection
 from .gff import GffFile
-from .tables import _sniff_format, _load_table
 
 __version__ = '0.0.2'
 
