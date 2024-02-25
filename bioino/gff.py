@@ -642,6 +642,8 @@ class GffFile:
         ...       file=file)
         >>> output = StringIO()
         >>> GffFile.from_file(file).to_csv(output)
+        >>> output.seek(0)
+        0
         >>> print("".join(output))  # doctest: +NORMALIZE_WHITESPACE
         seqid,source,feature,start,end,score,strand,phase,ID,comment,tag
         TEST,test,gene,1,100,.,+,+,test001,Test,
@@ -654,6 +656,8 @@ class GffFile:
         ...       file=file)
         >>> output = StringIO()
         >>> GffFile.from_file(file).to_csv(output, sep='\t')
+        >>> output.seek(0)
+        0
         >>> print("".join(output))  # doctest: +NORMALIZE_WHITESPACE
         seqid   source  feature start   end     score   strand  phase   ID      comment tag
         TEST    test    gene    1       100     .       +       +       test001 Test
