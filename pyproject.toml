@@ -28,7 +28,7 @@ classifiers = [
 ]
 
 dependencies = [ 
-  "carabiner[pd]",
+  "carabiner-tools[pd]",
   "pandas"
 ]
 
