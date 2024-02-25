@@ -1,6 +1,10 @@
 # 💻 bioino
 
-Interconverting FASTA, GFF, and CSV. 
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/scbirlab/bioino/python-publish.yml)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bioino)
+![PyPI](https://img.shields.io/pypi/v/bioino)
+
+Command-line tools and Python API for interconverting FASTA, GFF, and CSV. 
 
 **bioino** currently converts tables to FASTA, and GFF to tables. Also provides 
 a Python API for handling GFF and FASTA files, and converting to table

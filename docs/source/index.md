@@ -1,12 +1,10 @@
-.. bioin documentation master file, created by
-   sphinx-quickstart on Tue May 16 22:35:22 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+# 💻 bioino
 
-💻 bioino
-==========
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/scbirlab/bioino/python-publish.yml)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/bioino)
+![PyPI](https://img.shields.io/pypi/v/bioino)
 
-Interconverting FASTA, GFF, and CSV. 
+Command-line tools and Python API for interconverting FASTA, GFF, and CSV. 
 
 **bioino** currently converts tables to FASTA, and GFF to tables. Also provides 
 a Python API for handling GFF and FASTA files, and converting to table
