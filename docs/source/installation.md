@@ -5,7 +5,7 @@
 Install the pre-compiled version from PyPI:
 
 ```bash
-pip install bioin
+pip install bioino
 ```
 
 ## From source
