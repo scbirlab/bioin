@@ -698,7 +698,6 @@ class GffFile:
                                 delimiter=sep)
         writer.writeheader()
         
-        print_err(f'Writing table to {file.name}...')
         for gff_line in self.as_dict():
 
             writer.writerow(gff_line)
