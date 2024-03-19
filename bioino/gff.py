@@ -13,7 +13,9 @@ from io import TextIOWrapper
 from itertools import chain
 import sys
 
+from carabiner import print_err
 from carabiner.cast import cast
+from tqdm.auto import tqdm
 
 _GFF_COLNAMES = ('seqid', 'source', 'feature', 
                 'start', 'end', 'score', 
@@ -418,6 +420,7 @@ class GffFile:
             self.metadata = GffMetadata(self.metadata)
 
         if self.lookup:
+            self.lines = tuple(self.lines)
             self._lookup = self._lookup_table()
 
 
@@ -515,11 +518,13 @@ class GffFile:
 
         """.format(', '.join(_GFF_FEATURE_BLOCKLIST))
 
+        print_err("Building annotation lookup table.")
+
         lookup_table = defaultdict(list)
 
         last_feature = None 
 
-        for gff_line in self.lines:
+        for gff_line in tqdm(self.lines):
 
             if (gff_line.columns.feature not in _GFF_FEATURE_BLOCKLIST and 
                 'Name' in gff_line.attributes and
@@ -670,7 +675,8 @@ class GffFile:
         attribute_keys = set()
         main_cols = None
 
-        for i, gff_line in enumerate(self.lines):
+        print_err('Processing GFF attributes...')
+        for i, gff_line in enumerate(tqdm(self.lines)):
 
             if i == 0:
                 
@@ -692,6 +698,7 @@ class GffFile:
                                 delimiter=sep)
         writer.writeheader()
         
+        print_err('Writing table to {file.name}...')
         for gff_line in self.as_dict():
 
             writer.writerow(gff_line)
