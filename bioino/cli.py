@@ -11,7 +11,7 @@ from carabiner.pd import read_table
 from .fasta import FastaCollection
 from .gff import GffFile
 
-__version__ = '0.0.2'
+__version__ = '0.0.2.post1'
 
 def _allow_broken_pipe(f: Callable) -> Callable:
 
