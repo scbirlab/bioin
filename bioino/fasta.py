@@ -103,7 +103,8 @@ class FastaCollection:
     @staticmethod
     def _from_file(file: Union[str, TextIOWrapper]) -> Iterable[FastaSequence]:
 
-        file = cast(file, to=TextIOWrapper)
+        if isinstance(file, str):
+            file = cast(file, to=TextIOWrapper)
 
         seq_name, seq_desc, seq = None, None, ''
 
