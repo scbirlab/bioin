@@ -44,12 +44,6 @@ class FastaSequence:
     description: str
     sequence: str
 
-    def write(self, 
-              file: Optional[TextIOWrapper] = None) -> None:
-
-        return print(self, file=file)
-    
-
     def __str__(self) -> str:
 
         """Show the FASTA-formatted sequence."""
@@ -57,6 +51,11 @@ class FastaSequence:
         seq = '\n'.join(textwrap.wrap(self.sequence, width=80))
 
         return f">{self.name} {self.description}\n{seq}"
+
+    def write(self, 
+              file: Optional[TextIOWrapper] = None) -> None:
+
+        return print(self, file=file)
     
 
 @dataclass
@@ -76,21 +75,12 @@ class FastaCollection:
     write
         Write sequences to FASTA file.
 
-    Examples
+     Examples
     --------
     >>> seq1 = FastaSequence("example", "This is a description", "ATCG")
     >>> seq2 = FastaSequence("example2", "This is another sequence", "GGGAAAA")
     >>> fasta_stream = FastaCollection([seq1, seq2])
-    >>> fasta_stream.write()  
-    >example This is a description
-    ATCG
-    >example2 This is another sequence
-    GGGAAAA
-    >>> from io import StringIO
-    >>> fasta_file = StringIO()
-    >>> fasta_stream.write(fasta_file)
-    >>> fasta_stream2 = FastaCollection.from_file(fasta_file)
-    >>> fasta_stream2.write()
+    >>> print(fasta_stream)
     >example This is a description
     ATCG
     >example2 This is another sequence
@@ -99,6 +89,12 @@ class FastaCollection:
     """
 
     sequences: Iterable[FastaSequence] = field(default_factory=list)
+
+    def __str__(self):
+
+        """Show the FASTA-formatted sequence."""
+
+        return '\n'.join(str(seq) for seq in self.sequences)
 
     @staticmethod
     def _from_file(file: Union[str, TextIOWrapper]) -> Iterable[FastaSequence]:
@@ -131,7 +127,6 @@ class FastaCollection:
 
             yield FastaSequence(seq_name, seq_desc, seq)
 
-    
     @classmethod
     def from_file(cls, 
                   file: Union[str, TextIOWrapper]):
@@ -150,10 +145,26 @@ class FastaCollection:
         -------
         FastaCollection
 
+        Examples
+        --------
+        >>> from io import StringIO
+        >>> seq1 = FastaSequence("example", "This is a description", "ATCG")
+        >>> seq2 = FastaSequence("example2", "This is another sequence", "GGGAAAA")
+        >>> fasta_stream = FastaCollection([seq1, seq2])
+        >>> fasta_file = StringIO()
+        >>> fasta_stream.write(fasta_file)
+        >>> fasta_file.seek(0)  # rewind file
+        0
+        >>> fasta_stream2 = FastaCollection.from_file(fasta_file)
+        >>> print(fasta_stream2)
+        >example This is a description
+        ATCG
+        >example2 This is another sequence
+        GGGAAAA
+
         """
 
         return cls(seq for seq in cls._from_file(file=file))
-    
     
     @staticmethod
     def _from_pandas(data: DataFrame, 
@@ -262,7 +273,6 @@ class FastaCollection:
 
         return cls(seq for seq in sequences)
 
-
     def write(self,
               file: Optional[TextIOWrapper] = None):
         
@@ -280,6 +290,17 @@ class FastaCollection:
         Returns
         -------
         None
+
+        Examples
+        --------
+        >>> seq1 = FastaSequence("example", "This is a description", "ATCG")
+        >>> seq2 = FastaSequence("example2", "This is another sequence", "GGGAAAA")
+        >>> fasta_stream = FastaCollection([seq1, seq2])
+        >>> fasta_stream.write()  
+        >example This is a description
+        ATCG
+        >example2 This is another sequence
+        GGGAAAA
             
         """
         
